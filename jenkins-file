@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    environment {
+      MYSQL_HOST= 'db'
+      MYSQL_DB= 'exampledb'
+      MYSQL_USER= 'exampleuser'
+      MYSQL_PASS= 'examplepass'
+      WP_LOCALE= 'en_US'
+      WP_USER= 'admin'
+      WP_PASS= 'password'
+      WORDPRESS_SITE_URL= 'localhost:8081'
+      WORDPRESS_SITE_DESCRIPTION= 'fish'
+      WORDPRESS_ADMIN_USER= 'admin'
+      WORDPRESS_ADMIN_PASSWORD= 'adminadmin'
+      WORDPRESS_ADMIN_EMAIL ='jgimenez@teracloud.io'
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'building'
+                sh '''
+                set -ex
+                echo hola
+                
+                '''
+            }
+        }
+        stage('Tag') {
+            steps {
+                echo 'building'
+                sh 'printenv'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'building'
+                sh 'printenv'
+            }
+        }
+    }
+}
