@@ -16,8 +16,6 @@ pipeline {
             steps {
                 echo 'pushing'
                 
-                sh '''
-                set -ex
                 
                 withCredentials([
                     usernamePassword(
@@ -26,13 +24,15 @@ pipeline {
                         passwordVariable: 'PASSWORD')
                     ]) 
                     {
-                       echo "${USERNAME}"
-                       echo "${PASSWORD}"
+                    sh '''
+                    set -ex
+                        echo "${USERNAME}"
+                        echo "${PASSWORD}"
 
-                    //    docker push jgimeneztc/pdj:latest
-                    }
-                
-                '''
+                           docker push jgimeneztc/pdj:latest
+                    
+                    '''
+                }
             }
         }
     }
