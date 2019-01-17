@@ -8,7 +8,7 @@ pipeline {
                 
                 sh '''
                 set -ex
-                docker build tag jgimeneztc/pdj:latest .
+                docker build --tag jgimeneztc/pdj:latest .
                 '''
             }
         }
