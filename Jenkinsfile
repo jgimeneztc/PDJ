@@ -12,5 +12,15 @@ pipeline {
                 '''
             }
         }
+         stage('Tag') {
+            steps {
+                echo 'pushing'
+                
+                sh '''
+                set -ex
+                docker push jgimeneztc/pdj:latest
+                '''
+            }
+        }
     }
 }
