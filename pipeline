@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker
+        {
+            image 'wordpress'
+        }
+        
+    }
 
     environment {
       MYSQL_HOST= 'db'
@@ -17,22 +23,6 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
-            steps {
-                echo 'building'
-                sh '''
-                set -ex
-                echo hola
-                
-                '''
-            }
-        }
-        stage('Tag') {
-            steps {
-                echo 'building'
-                sh 'printenv'
-            }
-        }
         stage('Build') {
             steps {
                 echo 'building'
