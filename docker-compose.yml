@@ -2,7 +2,7 @@ version: '3.2'
 services:
   wordpress:
     # image: wordpress
-    build: ./Dockerfile
+    build: .
     privileged: true
     user: root
     ports:

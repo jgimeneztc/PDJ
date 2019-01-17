@@ -5,8 +5,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'building'
+                
                 sh '''
-                docker-compose up
+                set -ex
+                docker build -t "${JOB_NAME}" .
                 '''
             }
         }
