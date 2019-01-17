@@ -19,7 +19,8 @@ pipeline {
                 sh '''
                 set -ex
                 
-                withCredentials([usernamePassword(credentialsId: '4112bbea-dbb1-4372-b033-0e8c3848dcba')]) {
+                withCredentials([usernamePassword(credentialsId: '4112bbea-dbb1-4372-b033-0e8c3848dcba', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                
                 docker push jgimeneztc/pdj:latest
                 }
                 
