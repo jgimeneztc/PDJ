@@ -28,8 +28,8 @@ pipeline {
                     set -ex
                         echo "${USERNAME}"
                         echo "${PASSWORD}"
-
-                           docker login -u="${USERNAME}" -p="${PASSWORD}" push jgimeneztc/pdj:latest
+                        docker login -u="${USERNAME}" -p="${PASSWORD}" 
+                        docker push jgimeneztc/pdj:latest
                     
                     '''
                 }
