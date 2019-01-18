@@ -29,7 +29,7 @@ pipeline {
                         echo "${USERNAME}"
                         echo "${PASSWORD}"
 
-                           docker login push jgimeneztc/pdj:latest
+                           docker login -u=${USERNAME}" -p="${PASSWORD}" push jgimeneztc/pdj:latest
                     
                     '''
                 }
