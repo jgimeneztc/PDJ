@@ -12,7 +12,6 @@ pipeline {
                 set -ex
                 
                 docker build --tag jgimeneztc/pdj:latest .
-                terraform apply
                 aws ecr get-login --region us-east-2
                 docker tag latest https://922038103956.dkr.ecr.us-east-2.amazonaws.com/jgimeneztc/pdj:latest
                 docker push https://922038103956.dkr.ecr.us-east-2.amazonaws.com/jgimeneztc/pdj:latest
