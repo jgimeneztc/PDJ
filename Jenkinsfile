@@ -12,6 +12,7 @@ pipeline {
                 set -ex
                 
                 docker build .
+                docker images
                 docker push 922038103956.dkr.ecr.us-east-2.amazonaws.com/test_repository:5.0.3-php7.1-apache
                 '''
             }
