@@ -5,7 +5,12 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'building'
-                withCredentials([($class: "AmazonWebServicesCredentialsBinding",credentialsId: 'aws_credential', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                withCredentials([
+                    $class: "AmazonWebServicesCredentialsBinding",
+                    credentialsId: 'aws_credential',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')
+                    ]) {
             
                 sh '''
                 set -ex
