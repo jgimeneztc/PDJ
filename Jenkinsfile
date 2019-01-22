@@ -6,8 +6,6 @@ pipeline {
             steps {
                 echo 'building'
                 withCredentials([
-                    $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'jenkins',
                     accessKeyVariable: '${env.AWS_ACCESS_KEY_ID}',
                     secretKeyVariable: '${env.AWS_SECRET_ACCESS_KEY}'
                     ]) 
