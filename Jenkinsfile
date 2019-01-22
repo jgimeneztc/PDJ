@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'building'
                 sh 'docker build --tag jgimeneztc/pdj:latest . '
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'my-aws-credentials',
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_credential',
                         ACCESS_KEY: 'ACCESS_KEY', SECRET_KEY: 'SECRET_KEY']]) {
             
                 sh '''
@@ -44,5 +44,10 @@ pipeline {
         //         }
         //     }
         // }
+        
+                    //credentialsId: 'aws_credential',
+                    //accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                    //secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                    //]) {
     }
 }
