@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'building'
                 sh 'docker build --tag jgimeneztc/pdj:latest . '
-                withCredentials([
+                wrap([$class: 'AmazonAwsCliBuildWrapper',
                     credentialsId: 'aws_credential',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
