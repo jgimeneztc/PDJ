@@ -10,7 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     ca-certificates \
     curl \
     software-properties-common \
-    pip install awscli \
-    apt-get update -qq 
+    && pip install awscli \
+    && apt-get update -qq 
 
     USER wordpress
