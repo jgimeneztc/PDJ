@@ -10,7 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     ca-certificates \
     curl \
     software-properties-common \
-    && apt-get install gnupg2 \
+    && apt-get -y install gnupg2 \
     && pip install awscli \
     && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
     && apt-key fingerprint 0EBFCD88 \
