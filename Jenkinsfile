@@ -8,8 +8,8 @@ pipeline {
                 sh 'docker build --tag jgimeneztc/pdj:latest . '
                 withCredentials([
                     credentialsId: 'aws_credential',
-                    accessKeyVariable: 'ACCESS_KEY_ID', 
-                    secretKeyVariable: 'SECRET_ACCESS_KEY'
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                     ]) {
             
                 sh '''
