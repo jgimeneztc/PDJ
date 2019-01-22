@@ -5,11 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'building'
-                withCredentials([
-                    accessKeyVariable: '${env.AWS_ACCESS_KEY_ID}',
-                    secretKeyVariable: '${env.AWS_SECRET_ACCESS_KEY}'
-                    ]) 
-                    {
+                withCredentials([usernamePassword(credentialsId: 'aws_credential', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+            
                 sh '''
                 set -ex
 
