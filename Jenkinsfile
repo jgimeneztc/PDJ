@@ -13,7 +13,7 @@ pipeline {
                 
                 docker build -t test_repository .
                 aws ecr get-login --region us-east-2
-                docker tag prueba 922038103956.dkr.ecr.us-east-2.amazonaws.com
+                docker tag test_repository 922038103956.dkr.ecr.us-east-2.amazonaws.com/test_repository
                 docker push 922038103956.dkr.ecr.us-east-2.amazonaws.com/test_repository
                 '''
             }
