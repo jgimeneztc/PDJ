@@ -11,7 +11,7 @@ pipeline {
                 sh '''
                 set -ex
                 
-                docker build --tag jgimeneztc/pdj:latest .
+                docker build .
                 aws ecr get-login --region us-east-2
                 docker tag latest 922038103956.dkr.ecr.us-east-2.amazonaws.com/test_repository
                 docker push 922038103956.dkr.ecr.us-east-2.amazonaws.com/test_repository
