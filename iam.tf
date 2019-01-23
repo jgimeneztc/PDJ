@@ -9,7 +9,7 @@ resource "aws_iam_role" "execution" {
     {
       "Action": "sts:AssumeRole",
       "Principal": {
-        "Service": "ecs.amazonaws.com"
+        "Service": "ecs-tasks.amazonaws.com"
       },
       "Effect": "Allow"
     }
@@ -30,6 +30,7 @@ resource "aws_iam_role_policy" "ecs_service" {
       "Effect": "Allow",
       "Action": [
         "ec2:Describe*",
+        "ecr:*",
         "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
         "elasticloadbalancing:DeregisterTargets",
         "elasticloadbalancing:Describe*",

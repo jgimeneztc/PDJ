@@ -7,3 +7,7 @@ data "aws_availability_zones" "available" {}
 data "aws_subnet_ids" "example" {
   vpc_id = "${data.aws_vpc.selected.id}"
 }
+
+variable "image_version" {
+  default="latest"
+}

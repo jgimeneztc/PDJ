@@ -23,6 +23,7 @@ resource "aws_ecs_service" "main" {
   network_configuration {
     subnets = ["${data.aws_subnet_ids.example.ids}"]
     security_groups= ["${aws_security_group.container_sg.id}"]
+    assign_public_ip = true
   }
 
   # depends_on = ["aws_iam_role.pdat-ecs-role","aws_instance.pdat-ecs-instance"]
@@ -37,14 +38,24 @@ resource "aws_ecs_task_definition" "test" {
   network_mode             = "awsvpc"
   cpu                      = "1024"
   memory                   = "2048"
+  execution_role_arn       = "${aws_iam_role.execution.arn}"
+
   container_definitions = <<DEFINITION
 [
   {
     "cpu": 0,
-    "image":"nginx",
+    "image":"${aws_ecr_repository.test_repository.repository_url}:${var.image_version}",
     "memory": 128,
     "network_mode" : "awsvpc",
     "name": "nginx-container",
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "eu-east-2",
+        "awslogs-group": "yada",
+        "awslogs-stream-prefix": "complete-ecs"
+      }
+    },
     "portMappings": [
       {
         "containerPort": 80
