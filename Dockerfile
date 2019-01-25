@@ -1,6 +1,5 @@
 
-FROM wordpress:5.0.3-php7.1-apache
-
+FROM wordpress:5.0.3-php7.3-fpm
 USER root
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     && apt-get -y install --no-install-recommends \
