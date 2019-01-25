@@ -23,13 +23,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
     docker-ce \
     && curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
     && chmod +x /usr/local/bin/docker-compose \
-   && apt-get update && apt-get install -y \
-   wget \
-   unzip \
-   && rm -rf /var/lib/apt/lists/*  \
-   && curl -O https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip \ 
-   && unzip -o terraform_0.11.8_linux_amd64.zip \
-   && mv terraform /usr/bin \
-   && rm terraform_0.11.8_linux_amd64.zip
+    && git clone https://github.com/hashicorp/terraform.git ./ && \
+    git checkout v${TERRAFORM_VERSION} && \
+    /bin/bash scripts/build.sh
+
+RUN rm -rf /var/lib/apt/lists/*
 
 USER www-data
