@@ -2,12 +2,37 @@
 resource "aws_ecs_cluster" "cluster" {
   name = "test-ecs-cluster"
 }
+resource "aws_security_group" "container_sg" {
+  name        = "allow_all"
+  description = "Allow all inbound traffic"
+  vpc_id      = "${data.aws_vpc.selected.id}"
 
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    security_groups= ["${aws_security_group.service_sg.id}" ]
+  }
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["${data.aws_vpc.selected.cidr_block}"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
 resource "aws_ecs_service" "main" {
   name            = "test-service"
   cluster         = "${aws_ecs_cluster.cluster.id}"
   task_definition = "${aws_ecs_task_definition.test.arn}"
-  desired_count   = "1"
+  desired_count   = "2"
   launch_type     = "FARGATE"
 
   # iam_role        = "${aws_iam_role.execution.arn}"
@@ -41,7 +66,7 @@ resource "aws_ecs_task_definition" "test" {
 [
   {
     "cpu": 0,
-    "image":"${aws_ecr_repository.test_repository.repository_url}:${var.image_version}",
+    "image":"922038103956.dkr.ecr.us-east-2.amazonaws.com/wordpress_repo:latest",
     "memory": 128,
     "network_mode" : "awsvpc",
     "name": "nginx-container",
@@ -57,31 +82,21 @@ resource "aws_ecs_task_definition" "test" {
       {
         "containerPort": 80
       }
-  ]
+    ],
+    "mountPoints": [
+                {
+                    "sourceVolume": "efs",
+                    "containerPath": "/var/www/html"
+                }
+            ]
+  
   }
 ]
 DEFINITION
 volume {
     name      = "efs"
-    # host_path = "/mnt/efs/nginx-container"
   }
 }
 
-resource "aws_lb" "test" {
-  name               = "test-lb-tf"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = ["${aws_security_group.service_sg.id}"]
-  subnets            = ["${data.aws_subnet_ids.example.ids}"]
-}
 
-resource "aws_lb_listener" "front_end" {
-  load_balancer_arn = "${aws_lb.test.arn}"
-  port              = "80"
-  protocol          = "HTTP"
 
-  default_action {
-    type             = "forward"
-    target_group_arn = "${aws_lb_target_group.service_tg.arn}"
-  }
-}

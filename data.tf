@@ -11,3 +11,7 @@ data "aws_subnet_ids" "example" {
 variable "image_version" {
   default="latest"
 }
+
+data "aws_ecr_repository" "wordpress" {
+  name = "wordpress_repo"
+}
