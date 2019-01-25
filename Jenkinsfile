@@ -18,15 +18,15 @@ pipeline {
             
             }
         }
-        stage('Registry'){
-            steps{
-                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_credential',
-                        ACCESS_KEY: 'ACCESS_KEY', SECRET_KEY: 'SECRET_KEY']]) {
-                        cd ./repository
-                        terraform apply -auto-approve
-                    }
-            }
-        }
+        // stage('Registry'){
+        //     steps{
+        //                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_credential',
+        //                 ACCESS_KEY: 'ACCESS_KEY', SECRET_KEY: 'SECRET_KEY']]) {
+        //                 cd ./repository
+        //                 terraform apply -auto-approve
+        //             }
+        //     }
+        // }
         stage('Tag') {
             steps {
                 echo 'Tag'
@@ -34,8 +34,8 @@ pipeline {
                 sh '''
                 set -ex
                 
-                
-                docker tag test_repository 922038103956.dkr.ecr.us-east-2.amazonaws.com/test_repository
+
+                docker tag test_repository 922038103956.dkr.ecr.us-east-2.amazonaws.com/wordpress_repo
                 '''
             
             }
@@ -49,13 +49,10 @@ pipeline {
             
                 sh '''
                 set -ex
-                cd ./repository
-                terraform apply -auto-approve
-                cd ..
-                terraform apply -auto-approve
+                
                 readonly DOCKERLOGIN="$(aws ecr get-login --region us-east-2 --no-include-email)"
                 $DOCKERLOGIN
-                docker push 922038103956.dkr.ecr.us-east-2.amazonaws.com/test_repository
+                docker push 922038103956.dkr.ecr.us-east-2.amazonaws.com/wordpress_repo
                 '''
             }
             }
