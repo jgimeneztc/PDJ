@@ -10,7 +10,8 @@ pipeline {
                 sh '''
                 set -ex
                 
-                cd ./repository
+               
+                
                 docker build -t test_repository .
                 
                 '''
@@ -38,6 +39,10 @@ pipeline {
             
                 sh '''
                 set -ex
+                cd ./repository
+                terraform apply -auto-approve
+                cd ..
+                terraform apply -auto-approve
                 readonly DOCKERLOGIN="$(aws ecr get-login --region us-east-2 --no-include-email)"
                 $DOCKERLOGIN
                 docker push 922038103956.dkr.ecr.us-east-2.amazonaws.com/test_repository
