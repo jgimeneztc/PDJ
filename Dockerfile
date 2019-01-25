@@ -27,8 +27,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq \
    wget \
    unzip \
    && rm -rf /var/lib/apt/lists/*  \
-   && wget https://releases.hashicorp.com/terraform/0.11.3/terraform_0.11.3_linux_amd64.zip \
-   && unzip terraform_0.11.3_linux_amd64.zip \
+   && curl -O https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip \ 
+   && unzip -o terraform_0.11.8_linux_amd64.zip \
    && mv terraform /usr/bin \
    && rm terraform_0.11.3_linux_amd64.zip
 
