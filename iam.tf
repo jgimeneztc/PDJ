@@ -1,4 +1,3 @@
-
 resource "aws_iam_role" "execution" {
   name = "ecs-deploy-execution"
 
@@ -35,7 +34,11 @@ resource "aws_iam_role_policy" "ecs_service" {
         "elasticloadbalancing:DeregisterTargets",
         "elasticloadbalancing:Describe*",
         "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
-        "elasticloadbalancing:RegisterTargets"
+        "elasticloadbalancing:RegisterTargets",
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "logs:DescribeLogStreams"
       ],
       "Resource": "*"
     }

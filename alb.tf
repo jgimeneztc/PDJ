@@ -5,10 +5,14 @@ resource "aws_lb_target_group" "service_tg" {
   vpc_id      = "${data.aws_vpc.selected.id}"
   target_type = "ip"
 
+  health_check {
+    matcher="200,302,301" 
+  }
   depends_on = [
     "aws_lb.test",
   ]
 }
+
 
 resource "aws_security_group" "container_sg" {
   name        = "allow_all"
@@ -56,6 +60,8 @@ resource "aws_security_group" "service_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  
 
   egress {
     from_port   = 0

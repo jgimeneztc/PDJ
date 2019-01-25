@@ -1,6 +1,3 @@
-resource "aws_ecr_repository" "test_repository" {
-  name = "test_repository"
-}
 
 resource "aws_ecs_cluster" "cluster" {
   name = "test-ecs-cluster"
@@ -12,6 +9,7 @@ resource "aws_ecs_service" "main" {
   task_definition = "${aws_ecs_task_definition.test.arn}"
   desired_count   = "1"
   launch_type     = "FARGATE"
+
   # iam_role        = "${aws_iam_role.execution.arn}"
 
   load_balancer {
@@ -19,10 +17,9 @@ resource "aws_ecs_service" "main" {
     container_name   = "nginx-container"
     container_port   = 80
   }
-
   network_configuration {
-    subnets = ["${data.aws_subnet_ids.example.ids}"]
-    security_groups= ["${aws_security_group.container_sg.id}"]
+    subnets          = ["${data.aws_subnet_ids.example.ids}"]
+    security_groups  = ["${aws_security_group.container_sg.id}"]
     assign_public_ip = true
   }
 
@@ -39,7 +36,7 @@ resource "aws_ecs_task_definition" "test" {
   cpu                      = "1024"
   memory                   = "2048"
   execution_role_arn       = "${aws_iam_role.execution.arn}"
-
+  
   container_definitions = <<DEFINITION
 [
   {
@@ -51,8 +48,8 @@ resource "aws_ecs_task_definition" "test" {
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-region": "eu-east-2",
-        "awslogs-group": "yada",
+        "awslogs-region": "us-east-2",
+        "awslogs-group": "${aws_cloudwatch_log_group.yada.name}",
         "awslogs-stream-prefix": "complete-ecs"
       }
     },
@@ -64,6 +61,10 @@ resource "aws_ecs_task_definition" "test" {
   }
 ]
 DEFINITION
+volume {
+    name      = "efs"
+    # host_path = "/mnt/efs/nginx-container"
+  }
 }
 
 resource "aws_lb" "test" {

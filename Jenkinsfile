@@ -10,6 +10,7 @@ pipeline {
                 sh '''
                 set -ex
                 
+                cd ./repository
                 docker build -t test_repository .
                 
                 '''
