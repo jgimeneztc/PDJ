@@ -35,7 +35,7 @@ pipeline {
                 set -ex
                 
 
-                docker tag test_repository 922038103956.dkr.ecr.us-east-2.amazonaws.com/wordpress_repo/wordpress_repo
+                docker tag test_repository 922038103956.dkr.ecr.us-west-2.amazonaws.com/wordpress_repo
                 '''
             
             }
@@ -52,7 +52,7 @@ pipeline {
                 
                 readonly DOCKERLOGIN="$(aws ecr get-login --region us-east-2 --no-include-email)"
                 $DOCKERLOGIN
-                docker push 922038103956.dkr.ecr.us-east-2.amazonaws.com/wordpress_repo
+                docker push 922038103956.dkr.ecr.us-west-2.amazonaws.com/wordpress_repo
                 '''
             }
             }
