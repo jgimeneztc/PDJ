@@ -17,6 +17,7 @@ pipeline {
                 '''
             
             }
+            }
         }
         // stage('Registry'){
         //     steps{
