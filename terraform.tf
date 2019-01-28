@@ -1,6 +1,6 @@
 
 resource "aws_ecs_cluster" "cluster" {
-  name = "test-ecs-cluster"
+  name = "ecs-cluster"
 }
 resource "aws_security_group" "container_sg" {
   name        = "allow_all"
@@ -29,9 +29,9 @@ resource "aws_security_group" "container_sg" {
   }
 }
 resource "aws_ecs_service" "main" {
-  name            = "test-service"
+  name            = "main-service"
   cluster         = "${aws_ecs_cluster.cluster.id}"
-  task_definition = "${aws_ecs_task_definition.test.arn}"
+  task_definition = "${aws_ecs_task_definition.wordpress_task.arn}"
   desired_count   = "2"
   launch_type     = "FARGATE"
 
@@ -51,8 +51,8 @@ resource "aws_ecs_service" "main" {
   # depends_on = ["aws_iam_role.pdat-ecs-role","aws_instance.pdat-ecs-instance"]
 }
 
-resource "aws_ecs_task_definition" "test" {
-  family = "test-ecs-cluster"
+resource "aws_ecs_task_definition" "wordpress_task" {
+  family = "worpress-ecs-cluster"
 
   # execution_role_arn = "${aws_iam_role_policy.ecs_service.arn}"
 

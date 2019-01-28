@@ -1,5 +1,5 @@
 resource "aws_efs_file_system" "ecs_efs" {
-    creation_token = "my-product"
+    creation_token = "wordpress_efs"
 
 
 }

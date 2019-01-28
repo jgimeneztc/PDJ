@@ -35,7 +35,7 @@ pipeline {
                 set -ex
                 
 
-                docker tag test_repository 922038103956.dkr.ecr.us-east-2.amazonaws.com/wordpress_repo
+                docker tag test_repository 922038103956.dkr.ecr.us-east-2.amazonaws.com/wordpress_repo/wordpress_repo
                 '''
             
             }
