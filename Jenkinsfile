@@ -50,7 +50,7 @@ pipeline {
                 sh '''
                 set -ex
                 
-                readonly DOCKERLOGIN="$(aws ecr get-login --region us-east-2 --no-include-email)"
+                readonly DOCKERLOGIN="$(aws ecr get-login --region us-west-2 --no-include-email)"
                 $DOCKERLOGIN
                 docker push 922038103956.dkr.ecr.us-west-2.amazonaws.com/wordpress_repo
                 '''
