@@ -9,7 +9,6 @@ pipeline {
             
                 sh '''
                 set -ex
-                exit 1
                
                 
                 
@@ -24,7 +23,7 @@ pipeline {
             
                 sh '''
                 set -ex
-                
+                assas
 
                 '''
             
