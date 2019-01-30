@@ -39,12 +39,5 @@ pipeline {
         
          
     }
-    post {
-        success {
-            setGitHubPullRequestStatus("Build succeeded", "SUCCESS");
-        }
-        failure {
-            setGitHubPullRequestStatus("Build succeeded", "SUCCESS");
-        }
-    }
+
 }
